@@ -18,6 +18,8 @@ public class AlunoServlet extends HttpServlet {
     private final AlunoService alunoService = new AlunoService();
     private final PlanoService planoService = new PlanoService();
 
+
+    //lista atualiza de acordo com o get depois de salvo no post
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!usuarioEstaLogado(request)) {
@@ -50,11 +52,14 @@ public class AlunoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        //verifica se esta logado
         if (!usuarioEstaLogado(request)) {
             response.sendRedirect("index.jsp");
             return;
         }
 
+        //dados adquiridos pelo jsp
         try {
             alunoService.salvar(
                     request.getParameter("id"),
@@ -64,7 +69,10 @@ public class AlunoServlet extends HttpServlet {
                     request.getParameter("endereco"),
                     request.getParameter("telefone"),
                     request.getParameter("idPlano")
+                    //esse valor idplano eh do select usado para escolher o plano do usuario
+                    //se salvar certo, o servlet redireciona para alunos dnovo
             );
+
 
             response.sendRedirect("alunos?msg=salvo");
         } catch (IllegalArgumentException e) {
@@ -76,6 +84,7 @@ public class AlunoServlet extends HttpServlet {
         }
     }
 
+    //esse metodo busca todos os alunos e planos, depois envia para o jsp
     private void carregarDados(HttpServletRequest request) {
         List<Aluno> alunos = alunoService.listar();
         List<Plano> planos = planoService.listar();
@@ -84,8 +93,9 @@ public class AlunoServlet extends HttpServlet {
         request.setAttribute("planos", planos);
     }
 
+    //funcao para verificar se o usuario esta logado
     private boolean usuarioEstaLogado(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false); //tenta pegar a sessao existente
         return session != null && session.getAttribute("usuarioLogado") != null;
     }
 }

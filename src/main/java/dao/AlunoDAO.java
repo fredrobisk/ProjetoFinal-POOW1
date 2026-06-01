@@ -90,7 +90,7 @@ public class AlunoDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             preencherParametros(stmt, aluno);
-            stmt.executeUpdate();
+            stmt.executeUpdate();//esse comando executa o insert
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir aluno.", e);
@@ -110,7 +110,6 @@ public class AlunoDAO {
             preencherParametros(stmt, aluno);
             stmt.setInt(7, aluno.getId());
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar aluno.", e);
         }

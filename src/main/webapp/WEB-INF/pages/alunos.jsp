@@ -28,6 +28,7 @@
         <p class="mensagem-erro">${erro}</p>
     </c:if>
 
+    <!-- onde tudo comeca (cadastrando um aluno) enviando em post para cadastrar e editar-->
     <form class="formulario" action="alunos" method="post">
         <input type="hidden" name="id" value="${aluno.id}">
 
@@ -46,6 +47,8 @@
         <label for="telefone">Telefone</label>
         <input type="text" id="telefone" name="telefone" value="${aluno.telefone}" inputmode="numeric" maxlength="15" data-mask="telefone" placeholder="(55) 99999-9999">
 
+        <!-- o ponto mais importante da chave estrangeira-->
+        <!-- esse trecho mostra os planos cadastrados no banco -->
         <label for="idPlano">Plano</label>
         <select id="idPlano" name="idPlano" required>
             <option value="">Selecione</option>
@@ -57,7 +60,7 @@
             </c:forEach>
         </select>
 
-        <button type="submit">Salvar</button>
+        <button type="submit">Salvar</button> <!--aqui -->
 
         <c:if test="${not empty aluno}">
             <a class="botao-secundario" href="alunos">Cancelar edição</a>

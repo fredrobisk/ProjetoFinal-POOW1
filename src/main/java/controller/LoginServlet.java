@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(); //aqui verifica se esta logado
         session.setAttribute("usuarioLogado", usuario);
 
         response.sendRedirect("servicos");
