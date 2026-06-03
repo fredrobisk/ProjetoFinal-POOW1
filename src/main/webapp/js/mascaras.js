@@ -1,7 +1,7 @@
 function somenteNumeros(valor) {
     return valor.replace(/\D/g, "");
 }
-
+//funcao para mascarar o cpf 000.000.000-00
 function aplicarMascaraCpf(campo) {
     let valor = somenteNumeros(campo.value).slice(0, 11);
 
