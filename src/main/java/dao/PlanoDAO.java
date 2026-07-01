@@ -1,11 +1,13 @@
 package dao;
 
 import model.Plano;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class PlanoDAO {
 
     private Plano mapearPlano(ResultSet rs) throws SQLException {
@@ -108,6 +110,7 @@ public class PlanoDAO {
             throw new RuntimeException("Erro ao excluir plano.", e);
         }
     }
+
     public int contarAlunosVinculados(int idPlano) {
         String sql = "SELECT COUNT(*) FROM aluno WHERE id_plano = ?";
 
@@ -129,4 +132,3 @@ public class PlanoDAO {
         return 0;
     }
 }
-

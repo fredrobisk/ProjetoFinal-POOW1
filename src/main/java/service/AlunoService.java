@@ -2,13 +2,19 @@ package service;
 
 import dao.AlunoDAO;
 import model.Aluno;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class AlunoService {
 
-    private final AlunoDAO alunoDAO = new AlunoDAO();
+    private final AlunoDAO alunoDAO;
+
+    public AlunoService(AlunoDAO alunoDAO) {
+        this.alunoDAO = alunoDAO;
+    }
 
     public List<Aluno> listar() {
         return alunoDAO.listar();
@@ -18,7 +24,6 @@ public class AlunoService {
         return alunoDAO.buscarPorId(id);
     }
 
-    //esse metodo faz 3 coisas: valida os dados, cria o obj e decide se vai inserri ou atualizar
     public void salvar(String idParam, String nome, String cpf, String dataNascimentoParam,
                        String endereco, String telefone, String idPlanoParam) {
         validar(nome, cpf, idPlanoParam);
@@ -28,7 +33,7 @@ public class AlunoService {
         aluno.setCpf(cpf.trim());
         aluno.setEndereco(endereco == null ? "" : endereco.trim());
         aluno.setTelefone(telefone == null ? "" : telefone.trim());
-        aluno.setIdPlano(Integer.parseInt(idPlanoParam)); //esse trecho pega o ID da tela e coloca dentro do objeto aluno
+        aluno.setIdPlano(Integer.parseInt(idPlanoParam));
 
         if (dataNascimentoParam != null && !dataNascimentoParam.isBlank()) {
             aluno.setDataNascimento(LocalDate.parse(dataNascimentoParam));
@@ -36,9 +41,9 @@ public class AlunoService {
 
         if (idParam != null && !idParam.isBlank()) {
             aluno.setId(Integer.parseInt(idParam));
-            alunoDAO.atualizar(aluno); //chama funcao para verificar aluno com plano
+            alunoDAO.atualizar(aluno);
         } else {
-            alunoDAO.inserir(aluno); //chama dao para inserir no banco de dados
+            alunoDAO.inserir(aluno);
         }
     }
 
@@ -46,8 +51,6 @@ public class AlunoService {
         alunoDAO.excluir(id);
     }
 
-    //Aqui o sistema impede cadastrar aluno sem plano
-    //isso e importante pq o relacionamento aluno-plano fazem parte da modelagem
     private void validar(String nome, String cpf, String idPlanoParam) {
         if (nome == null || nome.isBlank()) {
             throw new IllegalArgumentException("O nome do aluno é obrigatório.");

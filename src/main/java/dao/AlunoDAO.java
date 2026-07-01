@@ -1,11 +1,13 @@
 package dao;
 
 import model.Aluno;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class AlunoDAO {
 
     private Aluno mapearAluno(ResultSet rs) throws SQLException {
@@ -90,7 +92,7 @@ public class AlunoDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             preencherParametros(stmt, aluno);
-            stmt.executeUpdate();//esse comando executa o insert
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir aluno.", e);
@@ -110,6 +112,7 @@ public class AlunoDAO {
             preencherParametros(stmt, aluno);
             stmt.setInt(7, aluno.getId());
             stmt.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar aluno.", e);
         }

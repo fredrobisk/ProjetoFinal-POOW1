@@ -1,11 +1,13 @@
 package dao;
 
 import model.Treino;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class TreinoDAO {
 
     private Treino mapearTreino(ResultSet rs) throws SQLException {

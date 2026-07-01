@@ -2,13 +2,19 @@ package service;
 
 import dao.PlanoDAO;
 import model.Plano;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 public class PlanoService {
 
-    private final PlanoDAO planoDAO = new PlanoDAO();
+    private final PlanoDAO planoDAO;
+
+    public PlanoService(PlanoDAO planoDAO) {
+        this.planoDAO = planoDAO;
+    }
 
     public List<Plano> listar() {
         return planoDAO.listar();

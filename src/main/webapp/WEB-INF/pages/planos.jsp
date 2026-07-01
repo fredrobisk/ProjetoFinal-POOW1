@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page isELIgnored="false" %>
 
 <html>
@@ -13,11 +13,11 @@
     <div class="marca">Focus</div>
 
     <nav class="menu">
-        <a href="servicos">Início</a>
-        <a href="alunos">Alunos</a>
-        <a href="planos">Planos</a>
-        <a href="treinos">Treinos</a>
-        <a href="logout">Sair</a>
+        <a href="${pageContext.request.contextPath}/servicos">Início</a>
+        <a href="${pageContext.request.contextPath}/alunos">Alunos</a>
+        <a href="${pageContext.request.contextPath}/planos">Planos</a>
+        <a href="${pageContext.request.contextPath}/treinos">Treinos</a>
+        <a href="${pageContext.request.contextPath}/logout">Sair</a>
     </nav>
 </header>
 
@@ -28,7 +28,7 @@
         <p class="mensagem-erro">${erro}</p>
     </c:if>
 
-    <form class="formulario" action="planos" method="post">
+    <form class="formulario" action="${pageContext.request.contextPath}/planos" method="post">
         <input type="hidden" name="id" value="${plano.id}">
 
         <label for="nome">Nome</label>
@@ -48,7 +48,7 @@
         <button type="submit">Salvar</button>
 
         <c:if test="${not empty plano}">
-            <a class="botao-secundario" href="planos">Cancelar edição</a>
+            <a class="botao-secundario" href="${pageContext.request.contextPath}/planos">Cancelar edição</a>
         </c:if>
     </form>
 
@@ -72,9 +72,9 @@
                 <td>R$ ${item.valor}</td>
                 <td>${item.ativo ? "Sim" : "Não"}</td>
                 <td>
-                    <a href="planos?acao=editar&id=${item.id}">Editar</a>
+                    <a href="${pageContext.request.contextPath}/planos?acao=editar&id=${item.id}">Editar</a>
                     |
-                    <a href="planos?acao=excluir&id=${item.id}"
+                    <a href="${pageContext.request.contextPath}/planos?acao=excluir&id=${item.id}"
                        onclick="return confirm('Deseja realmente excluir este plano?');">
                         Excluir
                     </a>

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page isELIgnored="false" %>
 
 <html>
@@ -13,11 +13,11 @@
     <div class="marca">Focus</div>
 
     <nav class="menu">
-        <a href="servicos">Início</a>
-        <a href="alunos">Alunos</a>
-        <a href="planos">Planos</a>
-        <a href="treinos">Treinos</a>
-        <a href="logout">Sair</a>
+        <a href="${pageContext.request.contextPath}/servicos">Início</a>
+        <a href="${pageContext.request.contextPath}/alunos">Alunos</a>
+        <a href="${pageContext.request.contextPath}/planos">Planos</a>
+        <a href="${pageContext.request.contextPath}/treinos">Treinos</a>
+        <a href="${pageContext.request.contextPath}/logout">Sair</a>
     </nav>
 </header>
 
@@ -28,7 +28,7 @@
         <p class="mensagem-erro">${erro}</p>
     </c:if>
 
-    <form class="formulario" action="treinos" method="post">
+    <form class="formulario" action="${pageContext.request.contextPath}/treinos" method="post">
         <input type="hidden" name="id" value="${treino.id}">
 
         <label for="idAluno">Aluno</label>
@@ -68,7 +68,7 @@
         <button type="submit">Salvar</button>
 
         <c:if test="${not empty treino}">
-            <a class="botao-secundario" href="treinos">Cancelar edição</a>
+            <a class="botao-secundario" href="${pageContext.request.contextPath}/treinos">Cancelar edição</a>
         </c:if>
     </form>
 
@@ -94,9 +94,9 @@
                 <td>${item.diaSemana}</td>
                 <td>${item.ativo ? "Sim" : "Não"}</td>
                 <td>
-                    <a href="treinos?acao=editar&id=${item.id}">Editar</a>
+                    <a href="${pageContext.request.contextPath}/treinos?acao=editar&id=${item.id}">Editar</a>
                     |
-                    <a href="treinos?acao=excluir&id=${item.id}"
+                    <a href="${pageContext.request.contextPath}/treinos?acao=excluir&id=${item.id}"
                        onclick="return confirm('Deseja realmente excluir este treino?');">
                         Excluir
                     </a>

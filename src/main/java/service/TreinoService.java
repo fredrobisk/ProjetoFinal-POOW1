@@ -2,12 +2,18 @@ package service;
 
 import dao.TreinoDAO;
 import model.Treino;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TreinoService {
 
-    private final TreinoDAO treinoDAO = new TreinoDAO();
+    private final TreinoDAO treinoDAO;
+
+    public TreinoService(TreinoDAO treinoDAO) {
+        this.treinoDAO = treinoDAO;
+    }
 
     public List<Treino> listar() {
         return treinoDAO.listar();
